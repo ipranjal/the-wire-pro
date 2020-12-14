@@ -9,8 +9,7 @@ if (!$item instanceof ElggRiverItem) {
 }
 
 $object = $item->getObjectEntity();
-
-$vars['message'] = thewire_filter($object->description);
+$vars['message'] = thewirepro_filter($object->description);
 
 $subject = $item->getSubjectEntity();
 $subject_link = elgg_view('output/url', [

@@ -13,8 +13,6 @@
 		<type>elgg_release</type>
 		<version>3.3</version>
 	</requires>
-	<conflicts>
-		<type>plugin</type>
-		<name>thewire</name>
-	</conflicts>
+
+
 </plugin_manifest>

@@ -32,13 +32,13 @@ $params = [
 ];
 
 if (elgg_extract('full_view', $vars)) {
-    $params['body'] = thewire_filter($entity->description);
+    $params['body'] = thewirepro_filter($entity->description);
     $params['show_summary'] = true;
 
     $params = $params + $vars;
     echo elgg_view('object/elements/full', $params);
 } else {
-    $params['content'] = thewire_filter($entity->description);
+    $params['content'] = thewirepro_filter($entity->description);
 
     $params = $params + $vars;
     echo elgg_view('object/elements/summary', $params);
