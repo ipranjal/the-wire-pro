@@ -9,6 +9,7 @@ return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
     'Nyholm\\Psr7\\' => array($vendorDir . '/nyholm/psr7/src'),
     'Http\\Message\\' => array($vendorDir . '/php-http/message-factory/src'),
+    'Embera\\' => array($vendorDir . '/mpratt/embera/src/Embera'),
     'Embed\\' => array($vendorDir . '/embed/embed/src'),
     'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
 );

@@ -1,6 +1,7 @@
 <?php
 
 include 'vendor/autoload.php';
+use Embera\Embera;
 
 /**
  * The wire pro
@@ -9,8 +10,6 @@ include 'vendor/autoload.php';
  *
  */
 
-use Elgg\Collections\Collection;
-
 /**
  * The Wire initialization
  *
@@ -18,14 +17,17 @@ use Elgg\Collections\Collection;
  */
 function thewirepro_init()
 {
+    elgg_set_entity_class('object', 'thewire', \ElggWirePro::class) .
+    elgg_register_plugin_hook_handler('config', 'comments_latest_first', function (\Elgg\Hook $hook) {
+        return false;
+    });
 
     // remove edit and access and add thread, reply, view previous
     elgg_register_plugin_hook_handler('register', 'menu:entity', 'thewirepro_setup_entity_menu_items');
-    elgg_register_plugin_hook_handler('register', 'menu:social', 'thewirepro_setup_social_menu_items');
+    //elgg_register_plugin_hook_handler('register', 'menu:social', 'thewirepro_setup_social_menu_items');
 
     // Extend system CSS with our own styles, which are defined in the thewire/css view
     elgg_extend_view('elgg.css', 'thewirepro/css');
-    elgg_extend_view('object/elements/summary', 'thewirepro/bottom');
 
 }
 
@@ -39,6 +41,9 @@ function thewirepro_setup_entity_menu_items(\Elgg\Hook $hook)
 
     $menu = $hook->getValue();
     $menu->remove('edit');
+    $menu->remove('reply');
+    $menu->remove('thread');
+
     $comment_enabled = elgg_get_plugin_setting('reply_as_comment', 'thewirepro', 'yes');
 
     if ($comment_enabled != 'yes') {
@@ -82,30 +87,12 @@ function thewirepro_filter($text)
         $text);
 
     // links
-    preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $text, $match);
-
-    //print_r($match[0]);
-    foreach ($match[0] as $link) {
-        $provider = explode('.', explode('/', $link)[2])[1];
-        if ($provider == 'com') {
-            $provider = explode('.', explode('/', $link)[2])[0];
-        }
-        $plugin = elgg_get_plugin_from_id('thewirepro');
-
-        //$embed = new \Embed\Embed();
-        if (!$plugin->embed_whitelist) {
-            $info = \Embed\Embed::create($link);
-            $text = $text . '<br><br>' . $info->code;
-        } else {
-
-            if (in_array($provider, explode(',', $plugin->embed_whitelist))) {
-                $info = \Embed\Embed::create($link);
-                $text = $text . '<br><br>' . $info->code;
-            }
-
-        }
-
-    }
+    // preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $text, $match);
+    $config = [
+        'responsive' => true,
+    ];
+    $embera = new Embera($config);
+    $text = $embera->autoEmbed($text);
 
     $text = parse_urls($text);
 
@@ -127,44 +114,10 @@ function thewirepro_filter($text)
     return trim($text);
 }
 
-/**
- * Sets up the entity menu for thewire
- *
- * Adds reply, thread, and view previous links. Removes edit and access.
- *
- * @param \Elgg\Hook $hook 'register', 'menu:entity'
- *
- * @return void|Collection
- */
-function thewirepro_setup_social_menu_items(\Elgg\Hook $hook)
-{
-
-    $entity = $hook->getEntityParam();
-    if (!$entity instanceof \ElggWire) {
-        return;
-    }
-
-    $menu = $hook->getValue();
-    $comment_enabled = elgg_get_plugin_setting('reply_as_comment', 'thewirepro', 'yes');
-
-    if ($comment_enabled == 'yes') {
-
-        $menu->add(ElggMenuItem::factory([
-            'name' => 'thread',
-            'icon' => 'comments-o',
-            'text' => elgg_echo('thewire:thread'),
-            'href' => elgg_generate_url('collection:object:thewire:thread', [
-                'guid' => $entity->wire_thread,
-            ]),
-        ]));
-    }
-
-    return $menu;
-}
-
 function stringToEmoji($text)
 {
     $emojis = [
+        '<3' => '💗',
         '8-D' => '😁',
         '8D' => '😁',
         ':-D' => '😁',
@@ -180,7 +133,7 @@ function stringToEmoji($text)
         ':-))' => '😃',
         '8)' => '😄',
         ':)' => '😄',
-        '<3' => '❤️',
+        // '<3' => '❤️',
         ':-)' => '😄',
         ':3' => '😄',
         ':D' => '😄',

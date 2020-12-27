@@ -21,6 +21,7 @@ class ComposerStaticInit057c2da4be857a5e134873b4995b3ff5
         ),
         'E' => 
         array (
+            'Embera\\' => 7,
             'Embed\\' => 6,
         ),
         'C' => 
@@ -42,6 +43,10 @@ class ComposerStaticInit057c2da4be857a5e134873b4995b3ff5
         'Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-http/message-factory/src',
+        ),
+        'Embera\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpratt/embera/src/Embera',
         ),
         'Embed\\' => 
         array (

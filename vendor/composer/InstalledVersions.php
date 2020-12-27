@@ -1,5 +1,15 @@
 <?php
 
+
+
+
+
+
+
+
+
+
+
 namespace Composer;
 
 use Composer\Semver\VersionParser;
@@ -14,24 +24,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'd6789630d3d2142968b0095890191e3bc8df7667',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'd6789630d3d2142968b0095890191e3bc8df7667',
     ),
     'composer/ca-bundle' => 
     array (
@@ -50,6 +60,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '3978fb9eb6a6e3240d034c1c3cfa9a24eb060768',
+    ),
+    'mpratt/embera' => 
+    array (
+      'pretty_version' => '2.0.14',
+      'version' => '2.0.14.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a24824abc539d54b8a950612b7c196f575de8257',
     ),
     'nyholm/psr7' => 
     array (

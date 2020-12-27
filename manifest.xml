@@ -3,10 +3,10 @@
 	<name>The Wire Pro</name>
 	<id>thewirepro</id>
 	<author>Pranjal Pandey</author>
-	<version>1.1</version>
+	<version>1.3</version>
 	<category>content</category>
 	<category>widget</category>
-	<description>Microblogging for Elgg Supercharged</description>
+	<description>The wire Supercharged</description>
 	<website>http://www.physcocode.com/</website>
 	<license>GNU General Public License version 2</license>
 	<requires>

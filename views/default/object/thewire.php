@@ -28,20 +28,32 @@ $params = [
     'tags' => false,
     'access' => false,
     'icon_entity' => $entity->getOwnerEntity(),
-    'class' => 'card',
+    'class' => '',
 ];
 
 if (elgg_extract('full_view', $vars)) {
     $params['body'] = thewirepro_filter($entity->description);
+    $responses = elgg_view_comments($entity, (bool) elgg_extract('show_add_form', $vars, true), ['inline' => true]);
+
+    if (!$responses) {
+        return;
+    }
+
     $params['show_summary'] = true;
+    if ($comment_enabled == 'yes') {
+        $params['responses'] = elgg_view_comments($entity, true, ['inline' => true]);
+    }
 
     $params = $params + $vars;
     echo elgg_view('object/elements/full', $params);
 } else {
     $params['content'] = thewirepro_filter($entity->description);
-
+    if ($comment_enabled == 'yes') {
+        $params['content'] .= elgg_view_comments($entity, true, ['inline' => true, 'limit' => 3]);
+    }
     $params = $params + $vars;
     echo elgg_view('object/elements/summary', $params);
+
 }
 
 if (!$entity->reply) {
