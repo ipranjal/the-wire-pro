@@ -9,7 +9,7 @@ if (!$item instanceof ElggRiverItem) {
 }
 
 $object = $item->getObjectEntity();
-$vars['message'] = thewirepro_filter($object->description);
+$vars['message'] = \TheWirePro\Bootstrap::thewirepro_filter($object->description). elgg_view_comments($object, true, ['inline' => true, 'limit' => 3]);;
 
 $subject = $item->getSubjectEntity();
 $subject_link = elgg_view('output/url', [
@@ -27,6 +27,7 @@ $object_link = elgg_view('output/url', [
     'class' => 'elgg-river-object',
     'is_trusted' => true,
 ]);
+
 
 $vars['summary'] = elgg_echo('river:object:thewire:create', [$subject_link, $object_link]);
 

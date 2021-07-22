@@ -32,7 +32,8 @@ $params = [
 ];
 
 if (elgg_extract('full_view', $vars)) {
-    $params['body'] = thewirepro_filter($entity->description);
+    $params['body'] =  \TheWirePro\Bootstrap::thewirepro_filter($entity->description);
+    
     $responses = elgg_view_comments($entity, (bool) elgg_extract('show_add_form', $vars, true), ['inline' => true]);
 
     if (!$responses) {
@@ -47,13 +48,12 @@ if (elgg_extract('full_view', $vars)) {
     $params = $params + $vars;
     echo elgg_view('object/elements/full', $params);
 } else {
-    $params['content'] = thewirepro_filter($entity->description);
+    $params['content'] = \TheWirePro\Bootstrap::thewirepro_filter($entity->description);
     if ($comment_enabled == 'yes') {
         $params['content'] .= elgg_view_comments($entity, true, ['inline' => true, 'limit' => 3]);
     }
     $params = $params + $vars;
     echo elgg_view('object/elements/summary', $params);
-
 }
 
 if (!$entity->reply) {
