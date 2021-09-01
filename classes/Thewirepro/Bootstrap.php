@@ -188,7 +188,7 @@ class Bootstrap extends \Elgg\DefaultPluginBootstrap
         'XP' => '😜',
         'd:' => '😜',
         'x-p' => '😜',
-        'xp' => '😜',
+        ':p' => '😜',
         ':-||' => '😠',
         ':@' => '😠',
         ':-.' => '😡',
